@@ -4,7 +4,7 @@
  * @Author: Jason
  * @Date: 2020-08-21 11:44:00
  * @LastEditors: Jason
- * @LastEditTime: 2020-08-26 16:40:02
+ * @LastEditTime: 2020-08-26 16:42:40
  */
 
 #include "delay.h"
@@ -64,5 +64,3 @@ int main(void) {
     while (1) {
     }
 }
-
-453456
