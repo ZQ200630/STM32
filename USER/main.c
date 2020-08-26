@@ -5,9 +5,13 @@
  * @Date: 2020-08-21 11:44:00
  * @LastEditors: Jason
 <<<<<<< HEAD
- * @LastEditTime: 2020-08-26 16:41:41
+<<<<<<< HEAD
+ * @LastEditTime: 2020-08-26 16:45:50
 =======
  * @LastEditTime: 2020-08-26 16:40:02
+>>>>>>> test
+=======
+ * @LastEditTime: 2020-08-26 16:42:40
 >>>>>>> test
  */
 
@@ -68,7 +72,3 @@ int main(void) {
     while (1) {
     }
 }
-
-
-
-12345
