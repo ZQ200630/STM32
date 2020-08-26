@@ -4,7 +4,11 @@
  * @Author: Jason
  * @Date: 2020-08-21 11:44:00
  * @LastEditors: Jason
- * @LastEditTime: 2020-08-26 16:39:37
+<<<<<<< HEAD
+ * @LastEditTime: 2020-08-26 16:41:41
+=======
+ * @LastEditTime: 2020-08-26 16:40:02
+>>>>>>> test
  */
 
 #include "delay.h"
