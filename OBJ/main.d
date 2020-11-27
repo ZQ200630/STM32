@@ -43,3 +43,5 @@
 ..\obj\main.o: ..\HARDWARE\EXTI\exti.h
 ..\obj\main.o: ..\HARDWARE\LED\led.h
 ..\obj\main.o: ..\GUI\menu.h
+..\obj\main.o: ..\SYSTEM\usart\usart.h
+..\obj\main.o: E:\Keil5\ARM\ARMCC\Bin\..\include\stdio.h

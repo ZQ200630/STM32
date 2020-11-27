@@ -1,29 +1,31 @@
 #include "menu.h"
 
-Node *current;
+extern Node *current;
 Node *setting;
 Node *root;
 unsigned char mode;
 
-Node Menu_1_1_2 = {NULL, {NULL}, 2, 2, "Channel 1", "PulseWidth", 123, 0, 1};
-Node Menu_1_1_1 = {NULL, {NULL}, 2, 1, "Channel 1", "Frequency", 123, 0, 2};
+Node Menu_1_1_1_1 = {NULL, {NULL}, 4, 1, "Adjust Amp", "10 db", 0, 0, 102};
+Node Menu_1_1_1_2 = {NULL, {NULL}, 4, 2, "Adjust Amp", "20 db", 1, 0, 102};
+Node Menu_1_1_1_3 = {NULL, {NULL}, 4, 3, "Adjust Amp", "30 db", 2, 0, 102};
+Node Menu_1_1_1_4 = {NULL, {NULL}, 4, 4, "Adjust Amp", "40 db", 3, 0, 102};
+
+Node Menu_1_1_1 = {NULL, {&Menu_1_1_1_1, &Menu_1_1_1_2, &Menu_1_1_1_3, &Menu_1_1_1_4}, 1, 1, "Amplifier", "GAIN:", 123, 1, 1};
+
+Node Menu_1_2_1_1 = {NULL, {NULL}, 2, 1, "Type Adj", "LOWPASS", 0, 0, 105};
+Node Menu_1_2_1_2 = {NULL, {NULL}, 2, 2, "Type Adj", "HIGHPASS", 1, 0, 105};
+
+Node Menu_1_2_2_1 = {NULL, {NULL}, 1, 1, "Freq Adj", "Freq: ", 0, 0, 107};
+
+Node Menu_1_2_1 = {NULL, {&Menu_1_2_1_1, &Menu_1_2_1_2}, 2, 1, "Filter", "Type:", 123, 1, 3};
+Node Menu_1_2_2 = {NULL, {&Menu_1_2_2_1}, 2, 2, "Filter", "Freq:", 123, 1, 4};
 
 
-Node Menu_1_2_1 = {NULL, {NULL}, 2, 1, "Channel 2", "Frequency", 123, 0, 3};
-Node Menu_1_2_2 = {NULL, {NULL}, 2, 2, "Channel 2", "PulseWidth", 123, 0, 4};
+Node Menu_1_1 = {NULL, {&Menu_1_1_1}, 2, 1, "Filter", "Amplifier", 123, 1, 5};
+Node Menu_1_2 = {NULL, {&Menu_1_2_1, &Menu_1_2_2}, 2, 2, "Filter", "Filter", 123, 1, 6};
 
-Node Menu_1_3_1 = {NULL, {NULL}, 2, 1, "Channel 3", "Frequency", 123, 0, 5};
-Node Menu_1_3_2 = {NULL, {NULL}, 2, 2, "Channel 3", "PulseWidth", 123, 0, 6};
 
-Node Menu_1_4_1 = {NULL, {NULL}, 2, 1, "Channel 4", "Frequency", 123, 0, 7};
-Node Menu_1_4_2 = {NULL, {NULL}, 2, 2, "Channel 4", "PulseWidth", 123, 0, 8};
-
-Node Menu_1_1 = {NULL, {&Menu_1_1_1, &Menu_1_1_2}, 4, 1, "Main Menu", "Channel 1", 123, 1, 9};
-Node Menu_1_2 = {NULL, {&Menu_1_2_1, &Menu_1_2_2}, 4, 2, "Main Menu", "Channel 2", 123, 1, 10};
-Node Menu_1_3 = {NULL, {&Menu_1_3_1, &Menu_1_3_2}, 4, 3, "Main Menu", "Channel 3", 123, 1, 11};
-Node Menu_1_4 = {NULL, {&Menu_1_4_1, &Menu_1_4_2}, 4, 4, "Main Menu", "Channel 4", 123, 1, 12};
-
-Node Menu_1 = {NULL, {&Menu_1_1, &Menu_1_2, &Menu_1_3, &Menu_1_4}, 1, 1, "123123", "Test111", 0, 1, 13};
+Node Menu_1 = {NULL, {&Menu_1_1, &Menu_1_2}, 1, 1, "Menu", "Filter", 0, 1, 7};
 
 
 /**
@@ -32,18 +34,23 @@ Node Menu_1 = {NULL, {&Menu_1_1, &Menu_1_2, &Menu_1_3, &Menu_1_4}, 1, 1, "123123
  * @return {} 
  */
 void menu_init(void) {
+	Menu_1_1_1_1.father = &Menu_1_1_1;
+	Menu_1_1_1_2.father = &Menu_1_1_1;
+	Menu_1_1_1_3.father = &Menu_1_1_1;
+	Menu_1_1_1_4.father = &Menu_1_1_1;
+	
+	Menu_1_2_1_1.father = &Menu_1_2_1;
+	Menu_1_2_1_2.father = &Menu_1_2_1;
+	
+	Menu_1_2_2_1.father = &Menu_1_2_2;
+	
 	Menu_1_1_1.father = &Menu_1_1;
-    Menu_1_1_2.father = &Menu_1_1;
 	Menu_1_2_1.father = &Menu_1_2;
 	Menu_1_2_2.father = &Menu_1_2;
-	Menu_1_3_1.father = &Menu_1_3;
-	Menu_1_3_2.father = &Menu_1_3;
-	Menu_1_4_1.father = &Menu_1_4;
-	Menu_1_4_2.father = &Menu_1_4;
+	
     Menu_1_1.father = &Menu_1;
 	Menu_1_2.father = &Menu_1;
-	Menu_1_3.father = &Menu_1;
-	Menu_1_4.father = &Menu_1;
+	
 	Menu_1.father = NULL;
 	current = &Menu_1_1;
 	root = &Menu_1;
@@ -64,12 +71,7 @@ void key_left() {
             current = current->father;
         }
     }
-	
-	if(current->id <= 6) {
 	refresh(1);
-	} else {
-	refresh(0);
-	}
 }
 
 void key_right() {
@@ -80,17 +82,17 @@ void key_right() {
             //mode = MODIFIED;
         }
     }
-	refresh(0);
+	refresh(1);
 }
 
 void key_up() {
     if (mode == MODIFIED) {
-        //TODO ???????????VALUE??
+
     } else {
         if (current->index == 1) {
-            current = current->father->son[current->father->count];
+            current = current->father->son[current->count-1];
         } else {
-            current = current->father->son[current->index - 1];
+            current = current->father->son[current->index - 2];
         }
     }
 	refresh(1);
@@ -98,7 +100,7 @@ void key_up() {
 
 void key_down() {
     if (mode == MODIFIED) {
-        //TODO ???????????VALUE??
+
     } else {
         if (current->index == current->count) {
             current = current->father->son[0];
@@ -106,12 +108,7 @@ void key_down() {
             current = current->father->son[current->index];
         }
     }
-	if(current->id <= 6) {
 	refresh(1);
-	} else {
-	refresh(0);
-	}
-	
 }
 
 void refresh(u8 isAllFresh) {
